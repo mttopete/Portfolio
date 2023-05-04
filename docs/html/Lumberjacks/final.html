@@ -1,0 +1,97 @@
+
+<h2>Video</h2>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/T5aelTZgZoQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br>
+<br>
+
+<h2>Project Summary:</h2>
+
+<p>
+The goal of our project is to have our minecraft character (named Jack) learn how to most effectively gather wood within a landscape consisting of a number of separate islands each inhabited with trees. Jack must handle a variety of decisions, including navigating within a continuous action space, deciding when to strike with his axe and when to build a bridge.
+</p>
+<p>
+Jack uses reinforcement learning to learn how to move within the world to avoid falling off the edge of an island, which will result in instant death, and how to position himself to successfully gather wood from the tree. Building bridges will cost the agent wood, lowering the reward, but doing so may be necessary in order to reach a nearby island with more wood to harvest. He also must decide which other island to go to and where to cross over, should he decide that it is the proper time. All of these skills and decisions require the thoughtful use of machine learning to train the learner to perform optimally.
+</p>
+
+<br>
+<br>
+
+<h2>Approaches</h2>
+
+<p>We first began the project by creating an agent with an action space that accounts for four distinct actions: moving, turning, pitching, and attacking. We decided that the agent would receive small rewards for looking at trees, a large reward for collecting wood, and an even larger negative reward for falling off of the island.</p>
+<p>Our initial model choice was a Proximal Policy Optimization model, which we fed a flattened one dimensional input representative of the blocks that surround the agent. Specifically, we wanted our input to include ten blocks in every horizontal direction from the agent and 9 blocks in the vertical direction with a lower bound at the ground level and the upper bound at the height of the tallest tree. We realized early that the PPO model was not optimal given our learning goal. Because our agent has a continuous action space and that we have a stochastic policy for wood gathering, we found that utilizing a Soft-Actor Critic model would suit our problem better.</p>
+<p>After switching to the Soft Actor Critic model, our agent was still learning at a pace too slow to meet our expectations. Subsequently, we decided that our input needed to be simplified. First, we reverted the one-dimensional input array back to a three-dimensional array in order to support the usage of multiple convolutional layers. After that, we experimented heavily with the parameters of our convolutional filters, with varying consistency across each new set of parameters. Here are some results:</p>
+
+<br>
+
+<ul style="list-style-type: none">
+<li>Filter 1: Batch Size: 32, Filter size: 5x5</li>
+<li>Filter 2: Batch Size: 16, Filter size: 5x1</li>
+<li>Filter 3: Batch Size: 16, Filter size: 1x5</li>
+<li>Filter 4: Batch Size: 16, Filter size: 1x1</li>
+</ul>
+
+<img src="final-fig1.png" width="416" height="292">
+
+<ul style="list-style-type: none">
+<li>Filter 1: Batch Size: 64, Filter size: 5x5</li>
+<li>Filter 2: Batch Size: 32, Filter size: 5x1</li>
+<li>Filter 3: Batch Size: 32, Filter size: 1x5</li>
+<li>Filter 4: Batch Size: 64, Filter size: 1x1</li>
+</ul>
+
+<img src="final-fig2.png" width="416" height="292">
+
+<ul style="list-style-type: none">
+<li>Filter 1: Batch Size: 64, Filter size: 5x5</li>
+<li>Filter 2: Batch Size: 32, Filter size: 5x1</li>
+<li>Filter 3: Batch Size: 32, Filter size: 1x5</li>
+<li>Filter 4: Batch Size: 32, Filter size: 1x1</li>
+</ul>
+
+<img src="final-fig3.png" width="416" height="292">
+
+<p>After comparing our results, we found that the parameters represented in Figure 3 had the highest average score and thus was our best model. From here, we began a more qualitative approach to performance analysis. </p>
+<p>It was easy to notice that no matter how long we trained, our model was still consistently running off of the edge in the middle of wood gathering. Eventually, we realized that this was all due to bugs in our automated wood gathering implementation. Initially, our implementation had the agent run forward for a constant amount of time after chopping a tree. This is dangerous for when a tree that is close to the edge is chopped. We then altered our implementation such that the time spent running forward was proportionate to the agent’s distance away from the tree being chopped. This dramatically reduced the amount of accidental deaths and as a result, the speed of learning increased.</p>
+<p>Our initial goal for expanding our agent’s capabilities was teaching our agent to craft axes throughout the wood gathering process, but only when necessary. Eventually, we figured that this goal was no longer of high priority and had the agent spawn with an axe already in the inventory. On top of this, we learned that adding to the action space can slow learning down and thus an action should only be added if it involves a goal worth reaching. Eventually, we decided that the action would instead involve a more interesting goal that we planned since the very beginning: bridge building.</p>
+<p>Often, the agent can find themself on a section of an island that is void of trees and there may be an island agencent to the agent with an abundance of trees. It may be more effective for the agent to build a bridge to the adjacent island and harvest its wood instead of going back. Next, it was time to implement a system for bridge building.</p>
+<p>First the agent needs to know that the land across the edge of the adjacent island is disconnected from the agent’s current island. This called for a breadth-first search algorithm of the ground layer of the observation space. This algorithm implements a priority queue beginning with the coordinates of the block under the agent’s feet. It then continuously dequeues coordinate pairs, marks the position within the observation space as visited and checks if any blocks above it include a log, if this is True, then the algorithm knows that there is still a tree on the agent’s island and that the agent shouldn’t build the bridge. However, if no log is found in that 1x1x9 cross section of the input, then the algorithm will enqueue the coordinates of all adjacent dirt or plank blocks. This process repeats until a log is found or the queue is empty. For an observation space of size NxNxM, the worst possible runtime of this algorithm is O(NxNxM)-M). This will only be the case if the agent finds themself agencent to one air block in a 10x10 space that is completely void of trees. This would result in (NxN) - 1 many cross-sections of size M being visited. In the end, all blocks marked as “visited” are connected to the agent’s island. All other blocks must either be a separate island or connected via a land bridge outside of the agent’s observation space.</p>
+<p>After the algorithm terminates, the agent can know if there is land beyond the edge that should be connected by a bridge. It is at this point that the automated bridge building process begins. For every log block spent on building the bridge, the agent loses the reward gained from collecting the block. Of course, it isn’t fully certain where the best bridge location is. It is neither certain what is the best sequence of islands to connect. This is for the agent to learn.</p>
+<p>Understandably, we should expect that the agent learns to gather wood and avoid edges much sooner than they begin building bridges. Thus, we should expect the agent’s average return to initial rise at a relatively fast pace and then dip once the potential for bridge building throughout each run. This is due to the risks that arise as bridge building becomes more and more likely.</p>
+<p>In order for a bridge to be built, the agent must clear enough trees so that there is no visible land left with trees on the agent’s island. The more barren an island is, the less time is spent chopping and the more time the agent has to wander upon an edge. Edges are still a risky place for the agent to be, as the agent could choose not to build and the agent could fall off of the edge and die. On top of this, the agent may begin learning to avoid edges entirely, making it less likely for the agent to deforest land near the edges and even less likely for the agent to stand on the edge in the first place. With this in mind, upon final evaluation, we expected that the performance would rise relatively fast when the agent is learning to chop down trees, and dip as the agent finds themself more often in barren spaces.</p>
+
+<br>
+<br>
+
+<h2>Evaluation:</h2>
+
+<p>As a result of the improvements to our model, we are seeing considerably better results in terms of our learner’s effectiveness at gathering wood. As can be seen in the current figures below, the learner improves much more consistently and rapidly than before in the initial stages of learning, resulting in higher scores with less training time relative to prior attempts. Graphs demonstrating the new performance demonstrate a much stronger upwards trajectory and higher average score than the graph from the status update.</p>
+<p>From a qualitative standpoint, we can observe that while the agent became much better at gathering wood quickly, but to our surprise the optimal wood-gathering process involves much more gradual exploration of the current island rather than pursuing observed trees on an adjacent island. This means that the frequency of building bridges is lower than what we originally anticipated within the wood-gathering process. However, on second consideration it makes sense that the learner would want to avoid the risk of falling off the edge which presents itself whenever getting near to an edge. Additionally, it is logical that the learner would want to determine if there are more trees on the current island before taking the penalty involved in crafting planks to build a bridge to another island. Overall, the learner has demonstrated a strong ability to effectively gather wood from its given environment.</p>
+
+<figure>
+<img src="curr2.png" width="416" height="292">
+<figcaption>Example of current performance</figcaption>
+</figure>
+<figure>
+<img src="perf-chart.png" width="416" height="292">
+<figcaption>Previous performance graph (from status report)</figcaption>
+</figure>
+
+
+<br>
+<br>
+
+<h2>References:</h2>
+
+<ul>
+<li>https://spinningup.openai.com/en/latest/algorithms/sac.html</li>
+<li>https://github.com/ray-project/ray/blob/master/rllib/agents/sac/sac.py</li>
+<li>https://github.com/ray-project/ray/blob/master/rllib/agents/sac/sac_tf_policy.py</li>
+<li>https://github.com/rail-berkeley/softlearning</li>
+<li>https://discuss.pytorch.org/t/number-of-dims-dont-match-in-permute/38562</li>
+<li>https://docs.ray.io/en/latest/rllib-models.html#pytorch-models</li>
+<li>https://docs.ray.io/en/latest/rllib-toc.html</li>
+<li>https://github.com/microsoft/malmo/blob/master/Malmo/samples/Python_examples/craft_work.py</li>
+</ul>

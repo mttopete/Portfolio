@@ -24,18 +24,22 @@
             </tr>
         </table>
     </div>
-    <h2>Food Bot / Point of Interest</h2>
-    <p>Simple project using MapQuest api to suggest food options near a user-specified location that also ended up able to return any point of interest for almost<br>
-        any query due to time constraints on the project and it being impractical to limit the query options to only foods. 
-    </p>
-    <a href = 'https://replit.com/@MateoTopete/Foodbot?v=1' target = '_blank' title = 'Food Bot'>https://replit.com/@MateoTopete/Foodbot?v=1</a>
+    <h2>Minecraft Lumberjack AI</h2>
+    <p>A course-long group project to design an AI using reinforcement learning in the <a href = 'https://www.microsoft.com/en-us/research/project/project-malmo/' target ='_blank' title = 'https://www.microsoft.com/en-us/research/project/project-malmo/'>microsoft MALMO enviorment.</a>
     <br>
+        Utilizing the <a href = 'https://docs.ray.io/en/latest/rllib/index.html' target = '_blank' title = 'https://docs.ray.io/en/latest/rllib/index.html'>RLlib</a>, 
+        <a href = 'https://www.gymlibrary.dev' target="_blank" title = 'https://www.gymlibrary.dev'>Gym</a>, Numpy, and Matplot libraries we built an AI that could traverse floating islands while chopping down the most<br>
+        trees possible in a set time while avoiding falling off the edge and building bridges using the least amount of materials to maximize the amount of wood left at the end.
+        <br>
+        More on our <a href = 'Lumberjacks/lumberjack.html' target = '_blank' title = 'Lumberjack'>group website</a>. <small>Website was made for old github pages with an outdated template and the video has since been unlisted by my group but the information is still good</small>
+    </p>
+    <br><br>
     <h2>Web Scraper and Search Engine</h2>
     <p>Two part course-long project to design a Web scraper to scrape through an internal database of webpages hosted by the school and then create a search engine to search the indexed pages.<br>
     I don't have access to the school network anymore and am unable to retrieve the files containing the indexed webpages to use the search engine, nor can i re-run the scraper to generate a new file <br>
     since the database is only hosted during set project work times and again i no longer can access those resources.
     </p>
-    <h3><a href = '../schoolwork/Web Scraper' target = '_blank' title = 'Web Scraper'>The Web Scraper</a></h3>
+    <h3><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Web%20Scraper' target = '_blank' title = 'Web Scraper'>The Web Scraper</a></h3>
     <p>The constraints for the Web Scraper were as follows:<br>
     <ul>
         <li>Must be 'polite' - at least 500ms between request to the same domain</li>
@@ -49,7 +53,7 @@
         before waiting the 500ms to release the mutex to ensure politeness. All other tasks such as updating the list of webpages to search next were also made thread-safe<br>
         The html of each webpage was parsed using the <a href = 'https://www.crummy.com/software/BeautifulSoup/bs4/doc/' target = '_blank' title="BeautifulSoup">Beautiful Soup</a> library to read specific html tags for information<br>
     </p>
-    <h3><a href = '../schoolwork/Search Engine' target = '_blank' title = 'Search Engine'>The Search Engine</a></h3>
+    <h3><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Search%20Engine' target = '_blank' title = 'Search Engine'>The Search Engine</a></h3>
     <p>
         The first part of creating the search engine was making an index using the webpages crawled in the earlier part of the project with the following constraints:
         <ul>
@@ -74,6 +78,13 @@
         Each page that contains a part of the query is scored, and the top 5 scored pages are returned as the search results.
         Again, unfortunatly i cannot retrieve the indexes i created for the search engine they are stuck on the University's servers or have since been deleted.
     </p>
+    <h2>Food Bot / Point of Interest</h2>
+    <p>Simple project using MapQuest api to suggest food options near a user-specified location that also ended up able to return any point of interest for almost<br>
+        any query due to time constraints on the project and it being impractical to limit the query options to only foods. 
+    </p>
+    <a href = 'https://replit.com/@MateoTopete/Foodbot?v=1' target = '_blank' title = 'Food Bot'>https://replit.com/@MateoTopete/Foodbot?v=1</a>
+    <br>
+    <br>
     <noscript>You need to enable JavaScript to view the full site.</noscript>
 </body>
 </html>
