@@ -1,6 +1,2 @@
-# Unnamed Website place
-something i want to do to showcase some personal projects
-
-
-## License
-none its just for fun 
+# Personal Website
+Showcase of my past and present projects
