@@ -22,72 +22,130 @@
 </nav>
 
 
-<body>
-    <h2>Minecraft Lumberjack AI</h2>
-    <p>A course-long group project to design an AI using reinforcement learning in the <a href = 'https://www.microsoft.com/en-us/research/project/project-malmo/' target ='_blank' title = 'https://www.microsoft.com/en-us/research/project/project-malmo/'>microsoft MALMO enviorment.</a>
-    <br>
-        Utilizing the <a href = 'https://docs.ray.io/en/latest/rllib/index.html' target = '_blank' title = 'https://docs.ray.io/en/latest/rllib/index.html'>RLlib</a>, 
-        <a href = 'https://www.gymlibrary.dev' target="_blank" title = 'https://www.gymlibrary.dev'>Gym</a>, Numpy, and Matplot libraries we built an AI that could traverse floating islands while chopping down the most<br>
-        trees possible in a set time while avoiding falling off the edge and building bridges using the least amount of materials to maximize the amount of wood left at the end.
-        <br>
-        More on our <a href = 'Lumberjacks/lumberjack.html' target = '_blank' title = 'Lumberjack'>group website</a>. <small>Website was made for old github pages with an outdated template and the video has since been unlisted by my group but the information is still good</small>
-    </p>
+<proj-body>
+
+    <div>
+        <h2>Minecraft Lumberjack AI
+            <br>
+            <small>A course-long group project to design an AI using reinforcement learning in the <a href = 'https://www.microsoft.com/en-us/research/project/project-malmo/' target ='_blank' title = 'https://www.microsoft.com/en-us/research/project/project-malmo/'>Microsoft MALMO enviorment.</a></small>
+        </h2>
+        <h3>Goal</h3>
+        <p>
+            Worked on in a groups of 3-4, we were tasked with researching and developing an agent to preform a task using reinforcement learning.
+            Our group chose to train an agent in Minecraft using Microsoft's MALMO project for reinforcement learning in Minecraft with the goal of
+            having it learn to chop down as many trees as it could in a set period of time while avoiding pitfalls and managing its resources.
+        </p>
+        <h3>Technologies Used</h3>
+        <ul>
+            <li><a href = 'https://www.microsoft.com/en-us/research/project/project-malmo/' target ='_blank' title = 'https://www.microsoft.com/en-us/research/project/project-malmo/'>Microsoft MALMO enviorment.</a>
+                for integrated access to the Minecraft envoirment through an agent.
+            </li>
+            <li><a href = 'https://docs.ray.io/en/latest/rllib/index.html' target = '_blank' title = 'https://docs.ray.io/en/latest/rllib/index.html'>RLlib</a>
+                for reinforcement learning algorithms, specifically the
+                <a href = 'https://docs.ray.io/en/latest/rllib/rllib-algorithms.html#sac' target = '_blank' title = 'https://docs.ray.io/en/latest/rllib/rllib-algorithms.html#sac'>SAC</a> 
+                implementation.  Chosen for its ability to take a continuous action space as input as well as apply convolutions to multi-dimensional observations.
+            </li>
+            <li> <a href = 'https://www.gymlibrary.dev' target="_blank" title = 'https://www.gymlibrary.dev'>Gym</a>
+                for enviorment observation and rewarding the agent, as well as being able to generate a continuous action space
+            </li>
+            <li>Numpy</li>
+            <li>MatplotLib</li>
+        </ul>
+        <h3>Results</h3>
+        <p>
+            We recieved a B+ on our project, mostly attributed to a poor write-up and explanation of our results.<br>
+            The agent never managed to preform as well as we would have liked, although at the time we could not figure out exactly what the problem was.
+            If left for a long period of time the agent would prefer to spin in place as if refusing to work; something we figured was a problem in our reward definitions.
+            Additionally, while the convolutions did help the performance and vision of the model, i believe we failed to properly define them.
+            <br><br>
+            A year or so after this project while doing my own projects/research into computer vision i went back to the code and saw that we defined the convolutions abysmally.
+            In hindsight, we should have looked for practical implementation and examples of them rather than trying to brute-force our way through the textbook and academic texts
+            to figure out how to properly apply them to our problem. Going back to the project, i can easily see where we could make improvements.
+        </p>
+    </div>
+
     <br><br>
-    <h2>Web Scraper and Search Engine</h2>
-    <p>Two part course-long project to design a Web scraper to scrape through an internal database of webpages hosted by the school and then create a search engine to search the indexed pages.<br>
-    I don't have access to the school network anymore and am unable to retrieve the files containing the indexed webpages to use the search engine, nor can i re-run the scraper to generate a new file <br>
-    since the database is only hosted during set project work times and again i no longer can access those resources.
-    </p>
-    <h3><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Web%20Scraper' target = '_blank' title = 'Web Scraper'>The Web Scraper</a></h3>
-    <p>The constraints for the Web Scraper were as follows:<br>
-    <ul>
-        <li>Must be 'polite' - at least 500ms between request to the same domain</li>
-        <li>Avoid infinite traps</li>
-        <li>Avoid similar pages with little or no new information</li>
-        <li>Detect and avoid dead urls</li>
-        <li>Detect and avoid crawling very large files</li>
-    </ul>
-        The Web Scraper took advantage of multi-threading to speed up the long process of crwaling the cache of websites provided. <br>
-        Each of the 5 domains we were required to limit our seach to was assigned a mutex so that only one of the 4 threads could make a request at a time <br>
-        before waiting the 500ms to release the mutex to ensure politeness. All other tasks such as updating the list of webpages to search next were also made thread-safe<br>
-        The html of each webpage was parsed using the <a href = 'https://www.crummy.com/software/BeautifulSoup/bs4/doc/' target = '_blank' title="BeautifulSoup">Beautiful Soup</a> library to read specific html tags for information<br>
-    </p>
-    <h3><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Search%20Engine' target = '_blank' title = 'Search Engine'>The Search Engine</a></h3>
-    <p>
-        The first part of creating the search engine was making an index using the webpages crawled in the earlier part of the project with the following constraints:
+    <div>
+        <h2>Web Scraper and Search Engine<br>
+            <small>
+                A two-part course-long project consisting of a Web Scraper to create an index for use in a Search Engine
+            </small>
+        </h2>
+        <h2><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Web%20Scraper' target = '_blank' title = 'Web Scraper'>The Web Scraper</a></h2>
+        <h3>Technologies Used</h3>
         <ul>
-            <li>Must be an inverted index</li>
-            <li>Index must be stored as files, not as a database</li>
-            <li>Must simulate memory constraints - not allowed to hold entire index in memory at once</li>
-            <li>During the creation of the index, it must be offloaded from memory into parts and reconstructed afterwards, again without loading all parts into memory at once</li>
-            <li>The amount of webpages indexed is just under 56,000 pages</li>
+            <li>School-provided initial <a href = 'https://github.com/Mondego/spacetime-crawler4py' target = '_blank' title = 'https://github.com/Mondego/spacetime-crawler4py'>code</a>
+            - contained a launch file, basic utility libraries, and skeleton code to be filled in and augmented by the students
+            </li>
+            <li><a href = 'https://www.crummy.com/software/BeautifulSoup/bs4/doc/' target = '_blank' title="BeautifulSoup">Beautiful Soup</a> to parse webpage html</li>
+            <li>Python urllib for handling urls</li>
+            <li>Python Regular Expressions</li>
+            <li>Multi-threading in python</li>
         </ul>
-        Each valid webpage was first tokenized into alphanumeric tokens, then stemmed using Porter Stemming. It was then posted to an index based on the first character of the token. <br>
-        Each posting contained the file ID for the posting, the frequency of the word and whether or not it had a bold, heading, or title tag in the html. <br>
-        After a certain amount of memory was being used, the indexer would offload and close all sub-indexes (one for each letter) and open up new, blank text files before continuing.<br>
-        Upon indexing the final webpage, a merger function is called to merge partial sub-indexes into one final index for each letter.(Parts a1, a2, and a3 merged into an index a containing all postings for 'a' words).<br>
-        Each posting in the final index includes a pre-calculated weighted tf-idf score. <br>
-        With the index completed, the Search Engine then had the constraints of:
+        <h3>Constraints <small>- the web crawler adheres to the following rules</small></h3>
         <ul>
-            <li>Doesn't load the entire index into memory at once during a search</li>
-            <li>Returns the top 5 most relevant results</li>
-            <li>Return results in under 300ms</li>
+            <li>Must be 'polite' - at least 500ms between request to the same domain</li>
+            <li>Avoid infinite traps</li>
+            <li>Avoid similar pages with little or no new information</li>
+            <li>Detect and avoid dead urls</li>
+            <li>Detect and avoid crawling very large files</li>
         </ul>
-        The search engine first tokenizes and stems the query so that it matches the postings in the indexes.<br>
-        Each page that contains a part of the query is scored, and the top 5 scored pages are returned as the search results.
-        Again, unfortunatly i cannot retrieve the indexes i created for the search engine they are stuck on the University's servers or have since been deleted.
-    </p>
+        <h3>The Index <small>- The index the web-crawler built was required to follow these rules</small></h3>
+        <ul>
+            <li>Must be stored as an inverted index</li>
+            <li>Index must be stored as a txt file, not in a database</li>
+            <li>The entire index must not be held in memory at once</li>
+            <li>The index must be offloaded from memory into parts and reconstructed into one singular file at the end without ever loading all parts at once</li>
+        </ul>
+        <h4>Index Implementation</h4>
+        <ol>
+            <li>Empty dictionary is created with 27 keys, 26 letters of the alphabet + 1 free space for numbers/symbols</li>
+            <li>Webpage is parsed. For each word, a posting is made in the dictionary containing the assigned file ID of the website, the frequency of the word and whether it was bolded/title/heading</li>
+            <li>When the dictionary reached a pre-determined size each of the 27 sub-dictionaries are pickled, offloaded, and the main dictionary is refreshed</li>
+            <li>After the crawler terminates, pickled files are loaded in batches by their starting letter, so as to not load the whole index at once</li>
+            <li>Once a complete dictionary of words with the same leading letter is completed along with the related posting information, a tf-idf score is calculated for each document/word pairing
+                using the posting information
+            </li>
+        </ol>
+        <h3><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Search%20Engine' target = '_blank' title = 'Search Engine'>The Search Engine</a></h3>
+        <p> The first part of creating the search engine was making an index using the webpages crawled in the earlier part of the project with the following constraints: </p>
+            <ul>
+                <li>Must be an inverted index</li>
+                <li>Index must be stored as files, not as a database</li>
+                <li>Must simulate memory constraints - not allowed to hold entire index in memory at once</li>
+                <li>During the creation of the index, it must be offloaded from memory into parts and reconstructed afterwards, again without loading all parts into memory at once</li>
+                <li>The amount of webpages indexed is just under 56,000 pages</li>
+            </ul>
+            <p>
+            Each valid webpage was first tokenized into alphanumeric tokens, then stemmed using Porter Stemming. It was then posted to an index based on the first character of the token. <br>
+            Each posting contained the file ID for the posting, the frequency of the word and whether or not it had a bold, heading, or title tag in the html. <br>
+            After a certain amount of memory was being used, the indexer would offload and close all sub-indexes (one for each letter) and open up new, blank text files before continuing.<br>
+            Upon indexing the final webpage, a merger function is called to merge partial sub-indexes into one final index for each letter.(Parts a1, a2, and a3 merged into an index a containing all postings for 'a' words).<br>
+            Each posting in the final index includes a pre-calculated weighted tf-idf score. 
+            </p>
+            <p>the index completed, the Search Engine then had the constraints of:</p>
+            <ul>
+                <li>Doesn't load the entire index into memory at once during a search</li>
+                <li>Returns the top 5 most relevant results</li>
+                <li>Return results in under 300ms</li>
+            </ul>
+            <p>
+                The search engine first tokenizes and stems the query so that it matches the postings in the indexes.<br>
+                Each page that contains a part of the query is scored, and the top 5 scored pages are returned as the search results.
+                Again, unfortunatly i cannot retrieve the indexes i created for the search engine they are stuck on the University's servers or have since been deleted.
+            </p>
+    </div>
     <h2>Food Bot / Point of Interest</h2>
     <p>Simple project using MapQuest api to suggest food options near a user-specified location that also ended up able to return any point of interest for almost<br>
         any query due to time constraints on the project and it being impractical to limit the query options to only foods. 
     </p>
-    <a href = 'https://replit.com/@MateoTopete/Foodbot?v=1' target = '_blank' title = 'Food Bot'>https://replit.com/@MateoTopete/Foodbot?v=1</a>
+    <p><a href = 'https://replit.com/@MateoTopete/Foodbot?v=1' target = '_blank' title = 'Food Bot'>https://replit.com/@MateoTopete/Foodbot?v=1</a></p>
     <br>
     <br>
     <h2><a href = 'https://replit.com/@MateoTopete/Movie-Manager' target = '_blank' title = 'Movie Manager'>Movie Rental Manager</a></h2>
     <p>A small project/exercise in c++ file structure and class structures. Lets users keep track of a movie inventory and renters of those movies</p>
     <noscript>You need to enable JavaScript to view the full site.</noscript>
-</body>
+</proj-body>
 
 
 </html>
