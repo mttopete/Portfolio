@@ -23,7 +23,6 @@
 
 
 <proj-body>
-
     <div>
         <h2>Minecraft Lumberjack AI
             <br>
@@ -61,6 +60,7 @@
             A year or so after this project while doing my own projects/research into computer vision i went back to the code and saw that we defined the convolutions abysmally.
             In hindsight, we should have looked for practical implementation and examples of them rather than trying to brute-force our way through the textbook and academic texts
             to figure out how to properly apply them to our problem. Going back to the project, i can easily see where we could make improvements.
+            <br><br>
         </p>
     </div>
 
@@ -71,7 +71,6 @@
                 A two-part course-long project consisting of a Web Scraper to create an index for use in a Search Engine
             </small>
         </h2>
-        <h2><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Web%20Scraper' target = '_blank' title = 'Web Scraper'>The Web Scraper</a></h2>
         <h3>Technologies Used</h3>
         <ul>
             <li>School-provided initial <a href = 'https://github.com/Mondego/spacetime-crawler4py' target = '_blank' title = 'https://github.com/Mondego/spacetime-crawler4py'>code</a>
@@ -82,70 +81,53 @@
             <li>Python Regular Expressions</li>
             <li>Multi-threading in python</li>
         </ul>
-        <h3>Constraints <small>- the web crawler adheres to the following rules</small></h3>
+        <h3>Constraints</h3>
+        <p>
+            The implementation of the Web Crawler, its resulting Index and the Search Engine was open-ended as far as creativity for the code
+            so long as it followed the following requirements:
+        </p>
+        <h3>The Web Crawler</h3>
         <ul>
             <li>Must be 'polite' - at least 500ms between request to the same domain</li>
             <li>Avoid infinite traps</li>
             <li>Avoid similar pages with little or no new information</li>
             <li>Detect and avoid dead urls</li>
             <li>Detect and avoid crawling very large files</li>
+            <li>Extra credit: multi-threaded and detect/avoid similar webpages</li>
         </ul>
-        <h3>The Index <small>- The index the web-crawler built was required to follow these rules</small></h3>
+        <h3>The Index</h3>
         <ul>
             <li>Must be stored as an inverted index</li>
-            <li>Index must be stored as a txt file, not in a database</li>
+            <li>Index must be stored as a file, not in a database</li>
+            <li>Postings in the index must account for the importance of the word's appearence (bold/heading/title)</li>
             <li>The entire index must not be held in memory at once</li>
-            <li>The index must be offloaded from memory into parts and reconstructed into one singular file at the end without ever loading all parts at once</li>
+            <li>The index must be offloaded from memory into parts and reconstructed as one or more files at the end without ever loading all parts at once</li>
         </ul>
-        <h4>Index Implementation</h4>
-        <ol>
-            <li>Empty dictionary is created with 27 keys, 26 letters of the alphabet + 1 free space for numbers/symbols</li>
-            <li>Webpage is parsed. For each word, a posting is made in the dictionary containing the assigned file ID of the website, the frequency of the word and whether it was bolded/title/heading</li>
-            <li>When the dictionary reached a pre-determined size each of the 27 sub-dictionaries are pickled, offloaded, and the main dictionary is refreshed</li>
-            <li>After the crawler terminates, pickled files are loaded in batches by their starting letter, so as to not load the whole index at once</li>
-            <li>Once a complete dictionary of words with the same leading letter is completed along with the related posting information, a tf-idf score is calculated for each document/word pairing
-                using the posting information
-            </li>
-        </ol>
-        <h3><a href = 'https://github.com/mttopete/test/tree/main/docs/schoolwork/Search%20Engine' target = '_blank' title = 'Search Engine'>The Search Engine</a></h3>
-        <p> The first part of creating the search engine was making an index using the webpages crawled in the earlier part of the project with the following constraints: </p>
+        <h3>The Search Engine</h3>
             <ul>
-                <li>Must be an inverted index</li>
-                <li>Index must be stored as files, not as a database</li>
-                <li>Must simulate memory constraints - not allowed to hold entire index in memory at once</li>
-                <li>During the creation of the index, it must be offloaded from memory into parts and reconstructed afterwards, again without loading all parts into memory at once</li>
-                <li>The amount of webpages indexed is just under 56,000 pages</li>
+                <li>Must have below a 300ms response time</li>
+                <li>The Index must also never be loaded in its entierty</li>
+                <li>Results must have some ranking to them (tf-idf + importance minimum)</li>
             </ul>
-            <p>
-            Each valid webpage was first tokenized into alphanumeric tokens, then stemmed using Porter Stemming. It was then posted to an index based on the first character of the token. <br>
-            Each posting contained the file ID for the posting, the frequency of the word and whether or not it had a bold, heading, or title tag in the html. <br>
-            After a certain amount of memory was being used, the indexer would offload and close all sub-indexes (one for each letter) and open up new, blank text files before continuing.<br>
-            Upon indexing the final webpage, a merger function is called to merge partial sub-indexes into one final index for each letter.(Parts a1, a2, and a3 merged into an index a containing all postings for 'a' words).<br>
-            Each posting in the final index includes a pre-calculated weighted tf-idf score. 
-            </p>
-            <p>the index completed, the Search Engine then had the constraints of:</p>
-            <ul>
-                <li>Doesn't load the entire index into memory at once during a search</li>
-                <li>Returns the top 5 most relevant results</li>
-                <li>Return results in under 300ms</li>
-            </ul>
-            <p>
-                The search engine first tokenizes and stems the query so that it matches the postings in the indexes.<br>
-                Each page that contains a part of the query is scored, and the top 5 scored pages are returned as the search results.
-                Again, unfortunatly i cannot retrieve the indexes i created for the search engine they are stuck on the University's servers or have since been deleted.
-            </p>
-    </div>
-    <h2>Food Bot / Point of Interest</h2>
-    <p>Simple project using MapQuest api to suggest food options near a user-specified location that also ended up able to return any point of interest for almost<br>
-        any query due to time constraints on the project and it being impractical to limit the query options to only foods. 
+        <h3>Results</h3>
+        <p>I recieved an A on the project, with a slight deduction in points due to un-optimized code in the search engine. The response time however still
+            fell within the acceptable range of 300ms or below. The final submission sucessfully met all of the above constraints including the extra credit
+            for the web crawler portion. The crawler was released on an internal server to ensure that students did not impact public services with buggy code
+            and the total amount of web pages crawled numbered well over 50,000; all of which were parsed, stemmed, tokenized, scored, and indexed into a file
+            and used in a search engine capable of returning relevant results in under 300ms.
+        </p>
+    <br>
+    <h2>Minor projects</h2>
+    <h3>Food/Point of Interest 'Bot' <small><a href = 'https://replit.com/@MateoTopete/Foodbot?v=1' target = '_blank' title = 'Food Bot'>https://replit.com/@MateoTopete/Foodbot?v=1</a></small></h3>
+    <p>
+        An exercise in making requests from API's and introductory Natural Language Processing.
+        It was created to parse sentences for key words related to a questions being asked about locations of restaurants.
+        Due to using the MapQuest api for location searching and direction giving, it ended up able to provide information and directions to anywhere
+        that mapquest had avalible even if a non food related location was asked of it.
     </p>
-    <p><a href = 'https://replit.com/@MateoTopete/Foodbot?v=1' target = '_blank' title = 'Food Bot'>https://replit.com/@MateoTopete/Foodbot?v=1</a></p>
-    <br>
-    <br>
-    <h2><a href = 'https://replit.com/@MateoTopete/Movie-Manager' target = '_blank' title = 'Movie Manager'>Movie Rental Manager</a></h2>
-    <p>A small project/exercise in c++ file structure and class structures. Lets users keep track of a movie inventory and renters of those movies</p>
-    <noscript>You need to enable JavaScript to view the full site.</noscript>
+    <h3>Movie Manager <small><a href = 'https://replit.com/@MateoTopete/Movie-Manager' target = '_blank' title = 'Movie Manager'>https://replit.com/@MateoTopete/Movie-Manager</a></small></h3>
+    <p>An exercise in c++ file and class structures. Lets users keep track of a movie inventory and renters of those movies</p>
+    <br><br><br><br>
+    </div>
 </proj-body>
-
-
 </html>

@@ -71,22 +71,25 @@ proj-body div {
 
 proj-body h2 {
   background-color: aliceblue;
+  margin: 0;
 }
 
 proj-body h2 small {
   font-size: 60%;
-
 }
 
 proj-body p {
+  margin:0;
   background-color: green;
 }
 
 proj-body ul {
+  margin:0;
   background-color: bisque;
 }
 
 proj-body ul li {
+  margin:0;
   padding-bottom: 3px;
 }
 
@@ -98,7 +101,15 @@ proj-body ol li {
   padding-bottom: 3px;
 }
 
+proj-body h3 {
+  margin:0;
+  padding-bottom: 4px;
+}
 
+proj-body h4 {
+  margin:0;
+  padding: 0;
+}
 
 
 
