@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
-<head>
-    <link rel="stylesheet" href="../style.css">
-</head>
+    <meta charset="UTF-8">
+    <head>
+        <title>Mateo Topete Portfolio</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="icon" href="../resources/images/hrm.jpg">
+    </head>
 <h1 class = 'title'>College Coursework</h1>
 
 <nav>
@@ -19,9 +21,11 @@
         <li><a href="certifications.html">Certifications</a>
         </li>
     </ul>
+    <ul style="float:right">
+        <li><a href="https://www.linkedin.com/in/mateo-topete-a29607173/" target="_blank">LinkedIn</a></li>
+        <li><a href="https://github.com/mttopete" target="_blank">Github</a></li>
+    </ul>
 </nav>
-
-
 <proj-body>
     <div>
         <h2>Minecraft Lumberjack AI
@@ -36,8 +40,8 @@
         </p>
         <h3>Technologies Used</h3>
         <ul>
-            <li><a href = 'https://www.microsoft.com/en-us/research/project/project-malmo/' target ='_blank' title = 'https://www.microsoft.com/en-us/research/project/project-malmo/'>Microsoft MALMO enviorment.</a>
-                for integrated access to the Minecraft envoirment through an agent.
+            <li><a href = 'https://www.microsoft.com/en-us/research/project/project-malmo/' target ='_blank' title = 'https://www.microsoft.com/en-us/research/project/project-malmo/'>Microsoft MALMO environment.</a>
+                for integrated access to the Minecraft environment through an agent.
             </li>
             <li><a href = 'https://docs.ray.io/en/latest/rllib/index.html' target = '_blank' title = 'https://docs.ray.io/en/latest/rllib/index.html'>RLlib</a>
                 for reinforcement learning algorithms, specifically the
@@ -45,14 +49,14 @@
                 implementation.  Chosen for its ability to take a continuous action space as input as well as apply convolutions to multi-dimensional observations.
             </li>
             <li> <a href = 'https://www.gymlibrary.dev' target="_blank" title = 'https://www.gymlibrary.dev'>Gym</a>
-                for enviorment observation and rewarding the agent, as well as being able to generate a continuous action space
+                for environment observation and rewarding the agent, as well as being able to generate a continuous action space
             </li>
             <li>Numpy</li>
             <li>MatplotLib</li>
         </ul>
         <h3>Results</h3>
         <p>
-            We recieved a B+ on our project, mostly attributed to a poor write-up and explanation of our results.<br>
+            We received a B+ on our project, mostly attributed to a poor write-up and explanation of our results.<br>
             The agent never managed to preform as well as we would have liked, although at the time we could not figure out exactly what the problem was.
             If left for a long period of time the agent would prefer to spin in place as if refusing to work; something we figured was a problem in our reward definitions.
             Additionally, while the convolutions did help the performance and vision of the model, i believe we failed to properly define them.
@@ -110,8 +114,8 @@
                 <li>Results must have some ranking to them (tf-idf + importance minimum)</li>
             </ul>
         <h3>Results</h3>
-        <p>I recieved an A on the project, with a slight deduction in points due to un-optimized code in the search engine. The response time however still
-            fell within the acceptable range of 300ms or below. The final submission sucessfully met all of the above constraints including the extra credit
+        <p>I received an A on the project, with a slight deduction in points due to un-optimized code in the search engine. The response time however still
+            fell within the acceptable range of 300ms or below. The final submission successfully met all of the above constraints including the extra credit
             for the web crawler portion. The crawler was released on an internal server to ensure that students did not impact public services with buggy code
             and the total amount of web pages crawled numbered well over 50,000; all of which were parsed, stemmed, tokenized, scored, and indexed into a file
             and used in a search engine capable of returning relevant results in under 300ms.
@@ -123,7 +127,7 @@
         An exercise in making requests from API's and introductory Natural Language Processing.
         It was created to parse sentences for key words related to a questions being asked about locations of restaurants.
         Due to using the MapQuest api for location searching and direction giving, it ended up able to provide information and directions to anywhere
-        that mapquest had avalible even if a non food related location was asked of it.
+        that mapquest had available even if a non food related location was asked of it.
     </p>
     <h3>Movie Manager <small><a href = 'https://replit.com/@MateoTopete/Movie-Manager' target = '_blank' title = 'Movie Manager'>https://replit.com/@MateoTopete/Movie-Manager</a></small></h3>
     <p>An exercise in c++ file and class structures. Lets users keep track of a movie inventory and renters of those movies</p>
