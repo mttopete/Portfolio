@@ -150,3 +150,18 @@ home-body p {
   margin-right: 25%;
   line-height: 200%;
 }
+
+home-body ul {
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  line-height: 200%;
+}
+
+home-body ul li {
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  line-height: 200%;
+  list-style: none;
+}
