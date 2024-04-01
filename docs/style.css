@@ -5,6 +5,8 @@ body{ margin:0;
 
 h1 {
   text-align: center;
+  margin:0;
+  padding:20px;
 }
 
 nav {
@@ -60,18 +62,48 @@ nav ul li:hover ul {
   display:block;
 }
 
-proj-body {
-  background-color: red;
-}
 
 proj-body div {
   margin-inline-end: 50%;
-  background-color: blueviolet;
+  padding-left: 3%;
+  padding-top: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+proj-body div2 {
+  margin-inline-end: 50%;
+  padding-left: 3%;
+  padding-top: 1%;
+}
+
+proj-body div2 h2 {
+  margin-inline-end: 50%;
+  padding-left: 3%;
+  padding-top: 1%;
+}
+
+proj-body div2 p {
+  margin-inline-end: 50%;
+  padding-top: 1%;
+  padding-left: 5px;
+}
+
+proj-body div2 ul {
+  margin-inline-end: 50%;
+  margin:0;
+}
+
+proj-body div2 ul li {
+  margin-inline-end: 50%;
+  margin:0;
 }
 
 proj-body h2 {
-  background-color: aliceblue;
+  background-color:lightblue;
   margin: 0;
+  padding: 10px;
+  text-align: center;
 }
 
 proj-body h2 small {
@@ -80,12 +112,12 @@ proj-body h2 small {
 
 proj-body p {
   margin:0;
-  background-color: green;
+  padding-top: 2px;
+  line-height: 130%;
 }
 
 proj-body ul {
   margin:0;
-  background-color: bisque;
 }
 
 proj-body ul li {
@@ -93,16 +125,9 @@ proj-body ul li {
   padding-bottom: 3px;
 }
 
-proj-body ol {
-  background-color: bisque;
-}
-
-proj-body ol li {
-  padding-bottom: 3px;
-}
-
 proj-body h3 {
   margin:0;
+  padding-top: 2px;
   padding-bottom: 4px;
 }
 
@@ -111,5 +136,17 @@ proj-body h4 {
   padding: 0;
 }
 
+home-body h2 {
+  text-align: center;
+  background-color:lightblue;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 20px;
+}
 
-
+home-body p {
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  line-height: 200%;
+}
