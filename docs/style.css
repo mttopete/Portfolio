@@ -83,9 +83,12 @@ proj-body div2 h2 {
   padding-top: 1%;
 }
 
+proj-body div2 h3 {
+  margin-inline-end: 50%;
+}
+
 proj-body div2 p {
   margin-inline-end: 50%;
-  padding-top: 1%;
   padding-left: 5px;
 }
 
